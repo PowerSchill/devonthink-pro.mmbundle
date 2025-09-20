@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tmpfile="$TMPDIR/8D444CFE-C1F9-4F82-AD8B-4EA7EC7A77C2.eml"
-cat > "${tmpfile}"
+cat >"${tmpfile}"
 
 # Tricky substitution to make it work for " and \ in the AppleScript below.
 name=${MM_SUBJECT//\\/\\\\}
@@ -12,6 +12,7 @@ osascript <<END
 
 try
 	tell application id "DNtp"
+		activate
 		set theRecord to import "${tmpfile}" from "MailMate" name "${name}"
 		set modification date of theRecord to creation date of theRecord
 		set the URL of theRecord to "${url}" # Allows it to be opened in MailMate using ⌃⌘O
